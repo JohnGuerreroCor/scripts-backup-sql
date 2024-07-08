@@ -1,0 +1,98 @@
+show tables from sakai
+
+SELECT * FROM SAKAI_SITE_TOOL
+
+select * from CM_ACADEMIC_SESSION_T cast2 
+
+select count(*) from SAKAI_USER su 
+select count(*) from SAKAI_USER su where su.USER_ID like '%u%'
+select * from SAKAI_USER su where su.USER_ID like '%u%';
+
+select * from SAKAI_USER su where su.TYPE = 'maintainer'
+SELECT * FROM SAKAI_REALM sr where sr.REALM_KEY = '9a2b9190-7bac-4bb5-973c-2ba44a5b326e'
+
+
+SELECT * FROM S where ss.SITE_ID = '9a2b9190-7bac-4bb5-973c-2ba44a5b326e'
+SELECT count(*) FROM SAKAI_SITE ss
+
+select * from SAKAI_REALM_RL_GR srrg 
+
+select count(*) from SAKAI_SITE_USER
+
+select * from SAKAI_REALM_RL_GR
+
+SELECT * FROM SAKAI_REALM
+
+select * from SAKAI_REALM_RL_FN 
+
+select count(*) from SAKAI_REALM_RL_FN --1550
+
+select * from SAKAI_REALM_ROLE
+
+select * from SAKAI_REALM_FUNCTION
+
+UPDATE sakai.SAKAI_REALM_RL_GR SET PROVIDED='1'
+
+INSERT INTO SAKAI_REALM_RL_FN VALUES (342, 15, 172)
+--------------------------------------REALM_KEY|ROLE_KEY|FUNCTION_KEY
+
+
+select * from SAKAI_SITE_USER
+INSERT INTO SAKAI_SITE_USER (SITE_ID, USER_ID, PERMISSION)
+
+select * from SAKAI_REALM_RL_GR
+INSERT INTO SAKAI_REALM_RL_GR (REALM_KEY, USER_ID, ROLE_KEY, ACTIVE, PROVIDED)
+
+select * from SAKAI_REALM_ROLE srr 
+
+--CREACIÓN COLUMNA CÓDIGO CURSO SAKAI V21
+ALTER TABLE SAKAI_SITE ADD COLUMN CUR_CODIGO int(11) DEFAULT NULL;
+
+--CURSO MODELO SAKAI V21
+INSERT INTO sakai.SAKAI_REALM (REALM_ID, PROVIDER_ID, MAINTAIN_ROLE, CREATEDBY, MODIFIEDBY, CREATEDON, MODIFIEDON) VALUES('/site/9a2b9190-7bac-4bb5-973c-2ba44a5b326e', NULL, 9, 'admin', 'admin', '2016-09-21 11:07:12', '2020-11-19 13:54:06');
+
+--EXTENDER LA LONGITUD DEL TÍTULO DE LOS SITIO SAKAI V21
+ALTER TABLE SAKAI_SITE MODIFY TITLE VARCHAR(500);
+
+--PERMISOS PARA LOS CURSOS EN SAKAI V21
+select * from SAKAI_REALM_FUNCTION srf where srf.FUNCTION_KEY in (58,54,55)
+
+select * from SAKAI_SITE_PROPERTY
+
+INSERT INTO sakai.SAKAI_SITE_PROPERTY (SITE_ID, NAME, VALUE) VALUES('!error', 'display-users-present', 'false');
+
+INSERT INTO SAKAI_SITE_PROPERTY ('ab8575c3-4ec9-336e-81c7-d216692c13dd', 'can_manage_resources', 'false')
+
+
+
+
+SELECT * FROM SAKAI_REALM_RL_GR WHERE REALM_KEY = '524' AND USER_ID = 'u20241223984' AND ROLE_KEY = 15
+
+
+
+
+
+
+
+
+SELECT * from SAKAI
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UPDATE sakai.SAKAI_USER SET PW='PBKDF2:dvd0fU59EWkLeJ1ArvZXkw==:c78CIgWwQkMccA70nqrPwA==';
