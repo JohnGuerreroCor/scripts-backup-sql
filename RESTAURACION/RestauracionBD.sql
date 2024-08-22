@@ -9,7 +9,7 @@
 --update dbo.usuario_estudiantes_intercambio set uwd2 = hashbytes('md5',hashbytes('sha1','12345'));
 --update dbo.usuario_graduados set uwd2 = hashbytes('md5',hashbytes('sha1','123456'));
 
-select * from dbo.usuario_graduados 
+select * from persona p 
 
 --CAMBIO DE CORREO MASIVO
 --update uaa set uaa_email = 'guerrerocordobajohn@gmail.com'
@@ -19,6 +19,8 @@ select * from dbo.usuario_graduados
 select * from ileusco.registro
 
 select * from web_parametro wp where wp.wep_nombre like '%token%'
+
+select * from usuario_administrativos ua where ua.us = 'a1075303330'
 
 --CAMBIO SERVICIO TOKEN LOCAL
 --UPDATE academia3000_john.dbo.web_parametro
@@ -46,6 +48,16 @@ VALUES (146624, 316, 463, 1);
 --INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
 VALUES (146624, 47, 463, 1);
 
+--ASIGNAR PERFIL CONTROL ACCESO ADMON JOHN
+--INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
+VALUES (146624, 317, 463, 1);
+
+--ASIGNAR PERFIL RESTAURANTE ADMON JOHN
+--INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
+VALUES (146624, 88, 645, 1);
+
+select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado = 1
+
 --CREACIÓN DE GRUPO
 --INSERT INTO grupo (gru_nombre, gru_id, gru_estado)
 VALUES ('Nota_Usuario_Registro', 'NOTA_USUARIO_REGISTRO', 1); 
@@ -59,6 +71,8 @@ select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado =
 
 --VER GRUPOS
 select * from grupo g where g.gru_codigo = 47 --88
+
+select * from grupo g where g.gru_nombre like '%RESTAURANTE%'
 
 --CONSULTAR USG POR PERCODIGO
 select * from usuario_administrativo_login ual where ual.up = 108797

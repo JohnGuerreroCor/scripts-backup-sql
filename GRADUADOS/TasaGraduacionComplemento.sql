@@ -1,3 +1,5 @@
+select * from programa p where p.pro_codigo = 418
+
 DECLARE @matriculados TABLE (per_nombre nvarchar(100),est_codigo nvarchar(100)) insert into @matriculados (per_nombre, est_codigo) 
 SELECT pe.per_nombre, est.est_codigo FROM matricula mat WITH (NOLOCK) 
 INNER JOIN estudiante est WITH (NOLOCK) ON mat.est_codigo = est.est_codigo   

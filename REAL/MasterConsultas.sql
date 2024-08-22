@@ -1,3 +1,113 @@
+select * from persona p where p.per_apellido like '%OLAYA ORTIZ%'
+
+select pe.pla_codigo from plan_estudiante pe where pe.est_codigo = '20242228429' and ple_estado = 1
+
+select p.pro_codigo, u.uaa_codigo, ua.uaa_nombre as facultad,
+p.pro_registro_snies, u.uaa_nombre, s.sed_nombre, ca.pla_codigo, ca.pla_total_creditos,
+ca.creditos_aprobados from estudiante e
+inner join programa p on e.pro_codigo = p.pro_codigo
+inner join sede s on p.sed_codigo = s.sed_codigo
+inner join uaa u on p.uaa_codigo = u.uaa_codigo
+inner join uaa ua on u.uaa_dependencia = ua.uaa_codigo
+inner join creditos_aprobados ca on e.est_codigo = ca.est_codigo
+inner join plan_estudiante pe on ca.pla_codigo = pe.pla_codigo
+where ca.est_codigo = '20242228429' and pe.ple_estado = 1 and pe.est_codigo = '20242228429'
+--where ca.est_codigo = '20242228429' and pe.ple_estado = 1 and pe.est_codigo = '20242228429'
+
+
+SELECT per.per_nombre, mti.mti_nombre, ROUND(ppcp.promedio_ponderado, 3) as promedio_ponderado 
+FROM matricula mat WITH(NOLOCK) 
+INNER JOIN plan_estudiante ple WITH(NOLOCK) ON mat.est_codigo = ple.est_codigo 
+INNER JOIN plan_academico pla WITH(NOLOCK) ON ple.pla_codigo = pla.pla_codigo 
+INNER JOIN calendario cal WITH(NOLOCK) ON mat.cal_codigo = cal.cal_codigo 
+INNER JOIN periodo per WITH(NOLOCK) ON cal.per_codigo = per.per_codigo 
+LEFT JOIN matricula_tipo mti WITH(NOLOCK) ON mat.mat_tipo = mti.mti_codigo 
+LEFT JOIN promedio_ponderado_con_perdidas ppcp WITH(NOLOCK) ON (mat.est_codigo = ppcp.est_codigo AND mat.mat_codigo = ppcp.mat_codigo) 
+LEFT JOIN promedio_aritmetico_con_perdidas pacp WITH(NOLOCK) ON (mat.est_codigo = pacp.est_codigo AND mat.mat_codigo = pacp.mat_codigo) 
+WHERE mat.est_codigo = '20242228429'
+AND pla.pla_codigo = 959
+GROUP BY per.per_nombre, cal.cal_nombre, mat.mat_estado, mti.mti_nombre,  ppcp.promedio_ponderado, pacp.promedio_aritmetico, mat.mat_fecha_actualizacion,mat.mat_codigo 
+ORDER by per_nombre desc
+
+
+SELECT c.cur_codigo, pr.per_nombre as periodo, nt.paa_semestre, nt.paa_credito, 
+c.cur_grupo, nt.asi_nombre_corto, nt.asi_nombre, nt.mac_nota, nt.maa_nombre, p.per_codigo, 
+p.per_nombre, p.per_apellido, p.per_email_interno FROM notas_total nt 
+inner join calendario cal on nt.cal_nombre = cal.cal_nombre 
+inner join periodo pr on cal.per_codigo = pr.per_codigo 
+inner join curso c on nt.cur_codigo = c.cur_codigo 
+inner join uaa_personal up on c.uap_codigo = up.uap_codigo 
+inner join persona p on up.per_codigo = p.per_codigo 
+WHERE est_codigo = '20242228429'
+AND nt.pla_codigo = 959
+AND nt.maa_codigo IN(1,2) 
+ORDER BY nt.cal_nombre, nt.asi_nombre
+
+
+select * from carnetizacion.usuario_carnet_digital ucd where ucd.up = 169084;
+---ucd.us = 'u20242228429'
+select * from estudiante e where e.est_codigo = '20242228429'
+
+select puntaje_calificado from puntaje_calificado_estudiante_activo where est_codigo = '20242228429'
+
+select * from usuario_sibusco_restaurante_login usrl where usrl.usg_uaa = 645
+
+select * from persona p where p.per_email_interno = 'luz.castrillon@usco.edu.co'
+
+select * from estudiante e where e.per_codigo = 160791
+
+select * from token.codigo_inicio_sesion cis where 
+
+select * from estudiante e where e.est_codigo = '20202192639'
+
+select * from usuario_sibusco_restaurante_login 
+
+---DOCUEMNTOS ADMITIDOS:::
+
+--fehca 21-06-2024 || 24-06-2024
+
+select * from web_parametro wp where wp.wep_nombre like '%documen%'
+
+select * from aud_inscripcion_documentos aid 
+
+select * from inscripcion i 
+
+
+select * from inscripcion_documentos id 
+inner join inscripcion_documentos_configuracion idc on id.idc_codigo = idc.idc_codigo
+inner join inscripcion_documentos_tipo idt on idc.idt_codigo = idt.idt_codigo 
+inner join inscripcion i on id.ins_codigo = i.ins_codigo
+inner join persona p on i.per_codigo = p.per_codigo 
+where convert(Date, id.ind_fecha) BETWEEN '2024-06-25' AND GETDATE() and idt.idt_codigo in (4,1) 
+order by id.ins_codigo 
+
+
+select * from inscripcion_documentos id 
+inner join inscripcion_documentos_configuracion idc on id.idc_codigo = idc.idc_codigo
+inner join inscripcion_documentos_tipo idt on idc.idt_codigo = idt.idt_codigo 
+inner join inscripcion i on id.ins_codigo = i.ins_codigo
+inner join persona p on i.per_codigo = p.per_codigo 
+where convert(Date, id.ind_fecha) BETWEEN '2024-06-13' AND '2024-06-17' and idt.idt_codigo in (4,1)
+order by id.ins_codigo 
+
+
+select * from inscripcion_documentos id 
+inner join inscripcion_documentos_configuracion idc on id.idc_codigo = idc.idc_codigo
+inner join inscripcion_documentos_tipo idt on idc.idt_codigo = idt.idt_codigo 
+where convert(Date, id.ind_fecha) BETWEEN '2024-06-25' AND GETDATE() and idt.idt_codigo in (4,1)
+order by id.ins_codigo 
+
+group by id.ins_codigo 
+
+select * from inscripcion_documentos_tipo idt 
+
+
+select * from 
+
+---:::::::::::::::::::::::
+
+
+
 select * from programa p 
 inner join uaa u on p.uaa_codigo  = u.uaa_codigo 
 where p.pro_registro_snies = '110114'
@@ -7,7 +117,7 @@ SELECT * FROM encuestas.cuestionarios c where c.cue_codigo = 47
 
 select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 47
 
-SELECT * FROM persona p where p.per_nombre = '%WILLIAM' and p.per_apellido like '%SIERRA BARON'
+SELECT * FROM persona p where p.per_apellido like '%CORDOBA DIAZ%'
 SELECT * FROM persona p where p.per_nombre = 'DANIELA' and p.per_apellido like '%ALARCÓN%'
 SELECT * FROM persona p where p.per_nombre like '%MICHELLE%' and p.per_apellido like '%LOZANO%'
 SELECT * FROM persona p where p.per_nombre = 'JUAN DIEGO' and p.per_apellido like '%MEDINA TRUJILLO%'
@@ -44,7 +154,9 @@ select * from persona p where p.per_nombre like '%zully%' and p.per_apellido lik
 select * from persona p where p.per_nombre like '%julian marino%' and p.per_apellido like '%trujillo%'
 select * from persona p where p.per_codigo = 129470
 
-select * from estudiante e where e.per_codigo = 137208
+select * from estudiante e where e.per_codigo = 119299
+
+select * from matricula m 
 
 SELECT * FROM dbo.matricula m 
 INNER JOIN dbo.estudiante e on m.est_codigo = e.est_codigo 

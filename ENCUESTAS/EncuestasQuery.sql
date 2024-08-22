@@ -4,6 +4,170 @@
 ---------------------QUERYS PARA ENCUESTAS----------------------
 ----------------------------------------------------------------
 
+-----------------------------------------
+--------ENCUESTA DEMOLINGÜÍSTICA---------                                                                                                                   
+-----------------------------------------
+
+--CUESTIONARIO
+select * from encuestas.cuestionarios c where c.cue_codigo = 47;
+select count(*) From encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 47  
+
+--PREGUNTAS
+select * from encuestas.preguntas p where p.cue_codigo = 47 and p.pre_estado = 1
+
+--ENCUESTA DEMOLINGÜÍSTICA RADIO BUTTON
+with resultado(rcu_codigo, rcu_fecha, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.rcu_fecha, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 47
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1248],[1249],[1250],[1251],[1252],[1253],[1254],[1255])) as pvt
+
+--ENCUESTA DEMOLINGÜÍSTICA TIPO TEXTO
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 47
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1249],[1250],[1251],[1254],[1255])) as pvt
+order by rc.rcu_codigo desc
+
+
+--rc.rcu_codigo, s.sed_nombre, ud.uaa_nombre as facultad, u.uaa_nombre
+select rc.rcu_codigo, p.per_nombre, p.per_apellido, floor((cast(convert(varchar(8),getdate(),112) as int) - cast(convert(varchar(8), p.per_fecha_nacimiento ,112) as int) ) / 10000) as edad, p.per_genero from encuestas.respuestas_cuestionarios rc  
+inner join dbo.persona p on rc.per_codigo = p.per_codigo 
+where rc.cue_codigo = 47
+order by rc.rcu_codigo asc
+
+
+
+select count(*) from encuestas.respuestas_cuestionarios rc  
+where rc.cue_codigo = 47 
+
+select count(*) from encuestas.respuestas_cuestionarios rc  
+inner join dbo.estudiante e on rc.per_codigo = e.per_codigo
+where rc.cue_codigo = 47 and e.est_registro_egresado = 0
+
+
+SELECT DISTINCT rc.per_codigo, rc.rcu_codigo, s.sed_nombre, ud.uaa_nombre as facultad, u.uaa_nombre
+FROM encuestas.respuestas_cuestionarios rc  
+INNER JOIN dbo.estudiante e ON rc.per_codigo = e.per_codigo
+inner join dbo.programa po on e.pro_codigo = po.pro_codigo 
+inner join dbo.uaa u on po.uaa_codigo = u.uaa_codigo 
+inner join dbo.uaa ud on u.uaa_dependencia = ud.uaa_codigo 
+inner join dbo.sede s on po.sed_codigo = s.sed_codigo 
+inner join dbo.nivel_academico na on po.nia_codigo = na.nia_codigo 
+inner join nivel_academico_tipo nat on na.nat_codigo = nat.nat_codigo
+WHERE rc.cue_codigo = 47 and nat.nat_codigo in (1,2);
+
+
+select * from matricula m 
+
+SELECT rc.rcu_codigo, s.sed_nombre, ud.uaa_nombre as facultad, u.uaa_nombre FROM matricula m 
+inner join estudiante e on m.est_codigo = e.est_codigo 
+inner join encuestas.respuestas_cuestionarios rc on e.per_codigo = rc.per_codigo 
+inner join dbo.programa po on e.pro_codigo = po.pro_codigo 
+inner join dbo.uaa u on po.uaa_codigo = u.uaa_codigo 
+inner join dbo.uaa ud on u.uaa_dependencia = ud.uaa_codigo
+inner join dbo.sede s on po.sed_codigo = s.sed_codigo 
+where (convert(Date, m.mat_fecha) BETWEEN '2024-07-05' AND '2024-07-30') and rc.cue_codigo = 47 
+
+
+select * from usuario_estudiante ue 
+
+
+select * from matricula_tipo mt 
+ 
+
+select * from encuestas.respuestas_cuestionarios rc 
+select * from dbo.estudiante e 
+
+inner join dbo.programa po on e.pro_codigo = po.pro_codigo 
+inner join dbo.uaa u on po.uaa_codigo = u.uaa_codigo 
+inner join dbo.uaa ud on u.uaa_dependencia = ud.uaa_codigo 
+inner join dbo.sede s on po.sed_codigo = s.sed_codigo 
+inner join dbo.nivel_academico na on po.nia_codigo = na.nia_codigo 
+inner join nivel_academico_tipo nat on na.nat_codigo = nat.nat_codigo 
+where rc.cue_codigo = 47 and nat.nat_codigo in (1,2)
+order by rc.rcu_codigo desc
+
+
+
+-- Sede, facultad, programa, nombre, edad, género
+
+
+-----------------------------------------
+---ENCUESTA DIAGNOSTICO SEGURIDAD VIAL---                                                                                                                   
+-----------------------------------------
+
+--CUESTIONARIO
+select * from encuestas.cuestionarios c where c.cue_codigo = 45
+select * From encuestas.respuestas_cuestionarios rc 
+
+--PREGUNTAS
+select * from encuestas.preguntas p where p.cue_codigo = 45 and p.pre_estado = 1
+
+--ENCUESTA DIAGNOSTICO SEGURIDAD VIAL RADIO BUTTON
+with resultado(rcu_codigo, rcu_fecha, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.rcu_fecha, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 45
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1129],[1130],[1131],[1133],[1134],[1135],[1137],[1138],[1139],[1141],[1142],[1143],[1144],[1145],[1146],[1147],[1148],[1149],[1150],[1151],[1152],[1153],[1154],[1155],[1156],[1158],[1159],[1160],[1161],[1162],[1163],[1164],[1166],[1167],[1168],[1169],[1170],[1171],[1172],[1173],[1174],[1175],[1176],[1177],[1180],[1181],[1182],[1183],[1184],[1185],[1186],[1187],[1189],[1190],[1191],[1192],[1193],[1194],[1195],[1196],[1197],[1198],[1199],[1200],[1201],[1202])) as pvt
+
+select DISTINCT rc.rcu_codigo, s.sed_nombre from encuestas.respuestas_cuestionarios rc  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo
+inner join dbo.uaa_personal up on up.per_codigo = rc.per_codigo 
+inner join dbo.uaa u on up.uaa_codigo = u.uaa_codigo 
+inner join dbo.sede s on u.sed_codigo = s.sed_codigo 
+where rc.cue_codigo = 45
+
+--ENCUESTA DIAGNOSTICO SEGURIDAD VIAL TIPO TEXTO
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 45
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1129],[1130],[1156])) as pvt
+
+--ENCUESTA DIAGNOSTICO SEGURIDAD VIAL DATOS COMPLEMENTARIOS
+select rc.rcu_codigo, p.per_codigo, p.per_identificacion, p.per_fecha_expedicion, m.mun_nombre , floor((cast(convert(varchar(8),getdate(),112) as int) - cast(convert(varchar(8), p.per_fecha_nacimiento ,112) as int) ) / 10000) as edad, p.per_nombre, p.per_apellido, p.per_genero, ec.esc_nombre, 
+(select top 1 u.uaa_nombre from uaa_personal up  
+inner join uaa_cargo uc on up.uac_codigo = uc.uac_codigo 
+inner join uaa u on up.uaa_codigo = u.uaa_codigo 
+inner join cargo c on uc.uac_cargo = c.car_codigo 
+where up.per_codigo = p.per_codigo 
+order by up.uap_codigo desc) as dependencia, 
+(select top 1 c.car_nombre from uaa_personal up
+inner join uaa_cargo uc on up.uac_codigo = uc.uac_codigo 
+inner join uaa u on up.uaa_codigo = u.uaa_codigo 
+inner join cargo c on uc.uac_cargo = c.car_codigo 
+where up.per_codigo = p.per_codigo 
+order by up.uap_codigo desc) as cargo,
+(select top 1 na.nia_nombre from persona_historia_academica pha
+inner join nivel_academico na on pha.nia_codigo = na.nia_codigo 
+where pha.per_codigo = p.per_codigo 
+ORDER by pha.pha_codigo desc) as escolaridad 
+from encuestas.respuestas_cuestionarios rc 
+left join persona p on rc.per_codigo = p.per_codigo 
+left join estado_civil ec on p.per_estado_civil = ec.esc_codigo 
+left join municipio m on p.per_lugar_expedicion = m.mun_codigo 
+where rc.cue_codigo = 45
+
+
+
+
+------------------
+---BIENESTAR 2023-2
+------------------
 
 select * from encuestas.cuestionarios c --44
 select * from encuestas.respuestas_opciones ro 
@@ -15,11 +179,6 @@ inner join encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
 inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
 inner join encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo
 where rc.cue_codigo = 44
-
-
-------------------
----BIENESTAR 2023-2
-------------------
 
 SELECT * FROM encuestas.cuestionarios c where c.cue_estado = 1
 

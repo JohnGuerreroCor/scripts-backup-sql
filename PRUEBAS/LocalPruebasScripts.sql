@@ -1,4 +1,16 @@
-select * from persona p where p.per_codigo = 108797
+
+select * from carnetizacion.ticket_estudiante_ileusco tei 
+
+select * from uaa_personal up where up.per_codigo = 83865
+
+select * from sibusco.restaurante_horario_servicio rhs where rhs.rhs_uaa_codigo = 645
+select * from estudiante e where e.est_codigo = '20181166364'
+
+SELECT * FROM matricula m 
+
+select * from persona p where p.per_codigo = 108797;
+
+UPDATE certificaciones.certificado_documento_vinculacion SET cdv_descripcion='', cdv_password='', per_codigo=0, per_codigo_admin=0, cdv_fecha='', doc_codigo=0 WHERE cdv_codigo=0;
 
 
 select pe.per_codigo,  m.est_codigo, pe.per_identificacion, g.gra_fecha from dbo.graduado g 

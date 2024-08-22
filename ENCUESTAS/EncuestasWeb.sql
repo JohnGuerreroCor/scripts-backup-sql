@@ -102,7 +102,7 @@ tratamiento de sus datos para los fines relacionados con la Misión
 Institucional, fines legales, contractuales, comerciales. La información
 obtenida para el Tratamiento de mis datos personales la he suministrado de forma
 voluntaria y es verídica.' 
-WHERE wep_codigo=523;
+WHERE wep_codigo=535;
 
 
 select * from encuestas.cuestionarios c 

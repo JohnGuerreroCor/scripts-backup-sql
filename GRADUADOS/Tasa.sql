@@ -8,7 +8,7 @@ INNER JOIN persona per WITH (NOLOCK) ON est.per_codigo = per.per_codigo
 WHERE pro.pro_codigo IN(229,427,533) AND (mat.mat_estado != 'I')  
 AND pro.pro_codigo IN(229,427,533) AND (mat.mat_estado != 'I')  
 AND (mat_observacion like 'Matricula Automatica%' OR mat_observacion like 'Matricula Posgrados%' or mat_cliente like 'MATRICULA_PRIMIPAROS%' AND est.est_alterno = 0
-OR SUBSTRING(est.est_codigo, 1, 5) in (SELECT pe.per_nombre FROM periodo WHERE pe.per_nombre BETWEEN '19701' AND '20241')) 
+OR SUBSTRING(est.est_codigo, 1, 5) in (SELECT pe.per_nombre FROM periodo WHERE pe.per_nombre BETWEEN '19701' AND '20242')) 
 GROUP by pe.per_nombre, est.est_codigo
 ORDER BY pe.per_nombre asc;
 
@@ -24,6 +24,6 @@ ORDER BY pe.per_nombre desc;
 SELECT g.per_nombre AS periodo_graduacion, COUNT(g.gra_codigo) AS cantidad_graduados
 FROM @graduados g
 JOIN @matriculados p ON g.gra_codigo = p.est_codigo
-WHERE p.per_nombre = '20201'
+WHERE p.per_nombre = '20191'
 GROUP BY g.per_nombre
 ORDER BY g.per_nombre;

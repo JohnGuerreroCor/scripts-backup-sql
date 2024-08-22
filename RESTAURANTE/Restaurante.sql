@@ -16,7 +16,6 @@ sed_codigo|sed_nombre
 
 select * from modulo m
 
-select * from si
 
 select * from 
 

@@ -97,6 +97,14 @@ from deleted del
 
 
 
+--CREATE TABLE academia3000_john.graduado.prueba (
+	pru_codigo int IDENTITY(1,1) NOT NULL,
+	usuario varchar(200) NOT NULL,
+	pass varchar(200) NOT NULL
+);
+
+
+select * from academia3000_john.graduado.prueba
 
 
 
@@ -104,27 +112,10 @@ from deleted del
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select * from ileusco.estudiantes_activos_ileusco eai where eai.per_identificacion = '26584851'
+select * from ileusco.registro r where r.reg_ter_codigo = 189269
+UPDATE academia3000_john.ileusco.registro SET reg_email='luzed09@gmail.com' WHERE reg_ter_codigo=189269;
+select * from carnetizacion.ticket_estudiante_ileusco tei where tei.eil_codigo = 189269 
 
 
 
