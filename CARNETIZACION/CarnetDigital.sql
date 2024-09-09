@@ -27,6 +27,14 @@ VALUES('VIGENCIA_QR_RESTAURANTE', 600 , 'TIEMPO VIGENCIA QR RESTAURANTE, QR CAMB
 -------------------------
 -------CONSULTAS---------
 -------------------------
+
+
+select top 1 *, GETDATE() as horaInicioSesion from carnetizacion.usuario_carnet_digital_login ucdl 
+inner join uaa u on ucdl.usg_uaa = u.uaa_codigo 
+inner join sede s on s.sed_codigo = u.sed_codigo 
+inner join persona p on ucdl.up = p.per_codigo 
+where  ucdl.us = 'u20202192290' and ucdl.usg_usuario != 136525 order by ucdl.istipo asc
+
 select * from estudiante e where e.per_codigo = 119299
 
 select per_nombre from periodo p where CONVERT(DATE, GETDATE()) BETWEEN p.per_fecha_inicio  AND p.per_fecha_fin

@@ -10,7 +10,7 @@ select * from CM_MEMBERSHIP_T cmt
 select * from CM_MEMBER_CONTAINER_T cmct 
 select * from CM_OFFICIAL_INSTRUCTORS_T coit 
 select * from CM_SEC_CATEGORY_T csct 
-
+select * from SAKAI_USER su 
 
 
 

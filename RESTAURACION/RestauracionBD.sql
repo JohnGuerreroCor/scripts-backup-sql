@@ -11,6 +11,8 @@
 
 select * from persona p 
 
+select * from web_parametro wp where wp.wep_nombre like '%SINCRONIZADOR%'
+
 --CAMBIO DE CORREO MASIVO
 --update uaa set uaa_email = 'guerrerocordobajohn@gmail.com'
 --update persona set per_email = 'guerrerocordobajohn@gmail.com', per_email_interno = 'john.guerrero@usco.edu.co';
@@ -83,3 +85,10 @@ select * from usuario_graduado_admin_login
 select * from usuario_encuestas_admin_login ueal 
 
 select * from web_parametro wp where wp.wep_codigo in (247,248)
+
+
+select * from sgd.documento d where d.doc_contenido = 'Fotos Carnetizacion' and d.per_codigo = 137556
+
+select * from sgd.documento d where d.doc_contenido = 'Fotos Carnetizacion' and d.doc_nombre_archivo = '137556'
+
+select * from estudiante e 

@@ -1,3 +1,70 @@
+select * from persona p where p.per_identificacion = '1075312158'
+
+
+select * from sgd.documento d where d.doc_contenido = 'Fotos Carnetizacion' and d.doc_nombre_archivo = '137556'
+
+select e.per_codigo from estudiante e where e.est_codigo = '20172163517' and e.est_registro_egresado = 0
+
+select p.per_codigo from persona p where p.per_identificacion = ?
+
+select * from sibusco.restaurante_horario_servicio rhs where rhs.rhs_uaa_codigo = 645;
+
+WITH VentaPorRestaurante AS
+(SELECT rhs.rhs_uaa_codigo, rv.rts_codigo, COUNT(rv.rve_codigo) AS ventas FROM sibusco.restaurante_horario_servicio rhs
+INNER JOIN sibusco.restaurante_venta rv ON rhs.rhs_uaa_codigo = rv.uaa_codigo and rv.rve_fecha = CONVERT(DATE, '2024-09-05')
+left join sibusco.restaurante_grupo_gabu rgg on rv.per_codigo = rgg.per_codigo 
+WHERE rhs.rhs_uaa_codigo = 645 AND (CONVERT(TIME, '14:30:00') BETWEEN rhs.rhs_hora_inicio_venta AND rhs.rhs_hora_fin_atencion and rv.rve_eliminado != 0 AND rgg.per_codigo IS NULL)
+GROUP BY rhs.rhs_uaa_codigo, rv.rts_codigo)
+SELECT rhs.rts_codigo, rts.rts_nombre, rhs.rhs_uaa_codigo, rs.uaa_nombre, rhs.rhs_cantidad_ventas_permitidas,
+ventas, rhs.rhs_cantidad_ventas_permitidas - v.ventas AS tiquetes_disponibles, rhs.rhs_hora_inicio_venta,
+rhs.rhs_hora_fin_venta FROM sibusco.restaurante_horario_servicio rhs
+INNER JOIN VentaPorRestaurante v ON rhs.rhs_uaa_codigo = v.rhs_uaa_codigo AND rhs.rts_codigo = v.rts_codigo
+INNER JOIN sibusco.restaurante_tipo_servicio rts on rhs.rts_codigo = rts.rts_codigo
+INNER JOIN sibusco.restaurante_sede rs on rhs.rhs_uaa_codigo = rs.uaa_codigo
+WHERE CONVERT(TIME, '14:30:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion;
+
+WITH ConsumoPorRestaurante AS
+(SELECT rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo, COUNT(*) AS consumo FROM sibusco.restaurante_consumo rc
+left join sibusco.restaurante_grupo_gabu rgg on rc.per_codigo = rgg.per_codigo 
+WHERE rc.uaa_codigo = 645  and rc.rcn_fecha = CONVERT(DATE, '2024-09-05') and rgg.per_codigo IS NULL
+GROUP BY rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo)
+SELECT rhs.rts_codigo, rts.rts_nombre, rhs.rhs_uaa_codigo, rs.uaa_nombre, rhs.rhs_cantidad_comidas,
+consumo, rhs.rhs_cantidad_comidas - c.consumo AS raciones_disponibles, rhs.rhs_hora_inicio_atencion,
+rhs.rhs_hora_fin_atencion FROM sibusco.restaurante_horario_servicio rhs
+INNER JOIN ConsumoPorRestaurante c ON rhs.rhs_uaa_codigo = c.uaa_codigo AND rhs.rts_codigo = c.rts_codigo
+INNER JOIN sibusco.restaurante_tipo_servicio rts on rhs.rts_codigo = rts.rts_codigo
+INNER JOIN sibusco.restaurante_sede rs on rhs.rhs_uaa_codigo = rs.uaa_codigo
+WHERE CONVERT(TIME, '14:30:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion;
+
+select * from usuario_sibusco_restaurante_login usrl where usrl.usg_uaa = 645;
+
+select top 1 *, GETDATE() as horaInicioSesion from carnetizacion.usuario_carnet_digital_login ucdl 
+inner join uaa u on ucdl.usg_uaa = u.uaa_codigo 
+inner join sede s on s.sed_codigo = u.sed_codigo 
+inner join persona p on ucdl.up = p.per_codigo 
+where  ucdl.us = 'u20242223972' and ucdl.usg_usuario != 136525 order by ucdl.istipo asc
+
+
+
+select * from  curso_virtual
+
+select * from curso c where c.cur_url is NOT null
+
+select top 1 *, GETDATE() as horaInicioSesion from dbo.usuario_estudiante_login uel 
+inner join uaa u on uel.usg_uaa = u.uaa_codigo 
+inner join sede s on s.sed_codigo = u.sed_codigo 
+inner join persona p on uel.up = p.per_codigo 
+where  uel.us = 'u2002101615' order by uel.istipo asc
+
+select * from sibusco.restaurante_horario_servicio rhs 
+
+select * from persona p where p.per_identificacion = '1075271006'
+
+
+select * from persona p where p.per_nombre like '%Jonathan janer%' and p.per_apellido like '%perdomo rojas%';
+
+select * from estudiante e where e.per_codigo = 111483
+
 select * from persona p where p.per_apellido like '%OLAYA ORTIZ%'
 
 select pe.pla_codigo from plan_estudiante pe where pe.est_codigo = '20242228429' and ple_estado = 1
@@ -104,6 +171,13 @@ select * from inscripcion_documentos_tipo idt
 
 select * from 
 
+select * from persona p where p.per_apellido like '%vargas silva%'
+
+select * from persona p where p.per_identificacion = '1007359722';
+select * from graduado g where g.est_codigo = '20181169481'
+
+select * from estudiante e where e.per_codigo = 139961
+
 ---:::::::::::::::::::::::
 
 
@@ -148,13 +222,15 @@ select * from persona p where p.per_nombre like '%jorge andres%' and p.per_apell
 select * from persona p where p.per_nombre like '%yenifer lorena%' and p.per_apellido like '%cordoba ipuz%'
 select * from persona p where p.per_nombre like '%aura maria%' and p.per_apellido like '%gonzalez%'
 select * from persona p where p.per_nombre like '%john jairo%' and p.per_apellido like '%guerrero fierro%'
-select * from persona p where p.per_nombre like '%juan david%' and p.per_apellido like '%garzon%'
+select * from persona p where p.per_nombre like '%lina%' and p.per_apellido like '%cepeda%'
+select * from persona p where p.per_nombre like '%daniela%' and p.per_apellido like '%bahamon castaño%'
+select * from persona p where p.per_nombre like '%angela%' and p.per_apellido like '%alarcon vargas%'
 select * from persona p where p.per_nombre like '%sergio andres%' and p.per_apellido like '%ninco%'
 select * from persona p where p.per_nombre like '%zully%' and p.per_apellido like '%cuellar lopez%'
 select * from persona p where p.per_nombre like '%julian marino%' and p.per_apellido like '%trujillo%'
 select * from persona p where p.per_codigo = 129470
 
-select * from estudiante e where e.per_codigo = 119299
+select * from estudiante e where e.per_codigo = 111483
 
 select * from matricula m 
 

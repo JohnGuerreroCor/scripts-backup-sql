@@ -106,7 +106,9 @@ from deleted del
 
 select * from academia3000_john.graduado.prueba
 
+select pass from academia3000_john.graduado.prueba where usuario = 'a1075303330'
 
+INSERT INTO academia3000_john.graduado.prueba (usuario, pass) VALUES('a1075303330', '12345');
 
 
 

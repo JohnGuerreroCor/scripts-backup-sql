@@ -4,6 +4,126 @@
 ---------------------QUERYS PARA ENCUESTAS----------------------
 ----------------------------------------------------------------
 
+
+
+----------------------------------------------------------------
+-----------------------BIENESTAR 2024-2-------------------------
+----------------------------------------------------------------
+
+SELECT * FROM encuestas.cuestionarios c where c.cue_estado = 1 and c.cue_codigo = 46
+
+
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 46 --E
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 48 --A
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 49 --D
+
+
+select * from encuestas.preguntas p where p.cue_codigo = 46 and p.pre_estado = 1 --46
+select * from encuestas.preguntas p where p.cue_codigo = 48 and p.pre_estado = 1 --48
+select * from encuestas.preguntas p where p.cue_codigo = 49 and p.pre_estado = 1 --49
+
+--ENCUESTA ESTUDIANTES BUTTOM 46
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 46
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1203], [1204], [1205], [1206], [1207], [1208], [1209], [1210], [1211], [1212], [1213], [1214], [1215], [1216], [1217], [1218], [1221], [1222], [1223], [1224], [1225], [1226], [1227], [1228], [1229], [1230], [1231], [1232], [1233], [1234], [1235], [1236], [1237], [1238], [1239], [1240], [1241], [1242], [1243], [1244])) as pvt
+
+--ENCUESTA ESTUDIANTES TEXTO 46
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 46
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1205],[1206],[1244])) as pvt
+
+
+
+
+--ENCUESTA BIENESTAR SEYSATRA TIPO RADIO BUTTOM 48
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 48
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1257], [1258], [1259], [1260], [1261], [1262], [1263], [1264], [1265], [1266], [1267], [1268], [1269], [1270], [1271], [1272], [1273], [1274], [1275], [1276], [1277], [1278], [1279])) as pvt
+
+--ENCUESTA BIENESTAR DE TIPO TEXTO 48
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 48
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1257],[1279])) as pvt
+
+
+
+--ENCUESTA BIENESTAR SEYSATRA TIPO RADIO BUTTOM 49
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 49
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1280], [1281], [1282], [1283], [1284], [1285], [1286], [1287], [1288], [1289], [1290], [1291], [1292], [1293], [1294], [1295], [1296], [1297], [1298], [1299], [1300], [1301], [1302])) as pvt
+
+--ENCUESTA BIENESTAR DE TIPO TEXTO 49
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 49
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1302])) as pvt
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+--------EVALUACIÓN DE NECESIDADES Y EXPECTATIVAS DE PARTES INTERESADAS DEL SISTEMA DE GESTIÓN DE SEGURIDAD Y PRIVACIDAD DE LA INFORMACIÓN---------                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+--CUESTIONARIO SGSPI 2024
+select * from encuestas.cuestionarios c where c.cue_codigo = 50;
+select count(*) From encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 50
+
+--PREGUNTAS SGSPI 2024
+select * from encuestas.preguntas p where p.cue_codigo = 50 and p.pre_estado = 1
+
+--ENCUESTA SGSPI 2024 RADIO BUTTON
+with resultado(rcu_codigo, rcu_fecha, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.rcu_fecha, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 50
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1303], [1304], [1305], [1306], [1307], [1308], [1309], [1310], [1311], [1312], [1313], [1314], [1315], [1316], [1317], [1318], [1319], [1320], [1321])) as pvt
+
+--ENCUESTA DEMOLINGÜÍSTICA TIPO TEXTO
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 50
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1315],[1320],[1321])) as pvt
+
+
+
+
 -----------------------------------------
 --------ENCUESTA DEMOLINGÜÍSTICA---------                                                                                                                   
 -----------------------------------------

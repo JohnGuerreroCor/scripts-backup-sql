@@ -1,3 +1,5 @@
+select * from  curso_virtual cv where cv.cur_url is not null
+
 
 select * from carnetizacion.ticket_estudiante_ileusco tei 
 
