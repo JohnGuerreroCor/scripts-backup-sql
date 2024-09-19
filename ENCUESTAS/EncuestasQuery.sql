@@ -5,6 +5,66 @@
 ----------------------------------------------------------------
 
 
+----------------------------------------------------------------
+-----------------------SEYSATRA 2024-2--------------------------
+----------------------------------------------------------------
+select * from encuestas.cuestionarios c where c.cue_estado = 1
+
+select * from encuestas.cuestionarios c --- 22
+select * from encuestas.preguntas p where p.cue_codigo = 22 and p.pre_estado = 1
+select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 32
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 2
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 4
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 3
+select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 1
+
+select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22
+
+--ENCUESTA SOCIODEMOGRAFICA SEYSATRA TIPO RADIO BUTTOM
+with resultado(rcu_codigo, rcu_fecha, per_codigo, tus_nombre, pre_codigo, rop_descripcion) as(
+select rc.rcu_codigo, rc.rcu_fecha, rc.per_codigo, tu.tus_nombre, pr.pre_codigo, convert(varchar(40), ro.rop_descripcion , 112) from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
+inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
+inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-08-20' AND '2024-09-13'  
+) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
+
+
+
+--ENCUESTA SOCIODEMOGRAFICA SEYSATRA DE TIPO TEXTO
+with resultado(rcu_codigo, per_codigo, tus_nombre, pre_codigo, res_texto) as(
+select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto from encuestas.respuestas_cuestionarios rc 
+inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
+inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
+inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-08-20' AND '2024-09-13'   
+) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
+
+
+select rc.rcu_codigo, p.per_codigo, p.per_identificacion, p.per_fecha_nacimiento, floor((cast(convert(varchar(8),getdate(),112) as int) - cast(convert(varchar(8), p.per_fecha_nacimiento ,112) as int) ) / 10000) as edad, p.per_nombre, p.per_apellido, p.per_genero, ec.esc_nombre, p.per_estrato, p.per_telefono_movil, p.per_email_interno, 
+(select top 1 u.uaa_nombre from uaa_personal up  
+inner join uaa_cargo uc on up.uac_codigo = uc.uac_codigo 
+inner join uaa u on up.uaa_codigo = u.uaa_codigo 
+inner join cargo c on uc.uac_cargo = c.car_codigo 
+where up.per_codigo = p.per_codigo 
+order by up.uap_codigo desc) as dependencia, 
+(select top 1 c.car_nombre from uaa_personal up
+inner join uaa_cargo uc on up.uac_codigo = uc.uac_codigo 
+inner join uaa u on up.uaa_codigo = u.uaa_codigo 
+inner join cargo c on uc.uac_cargo = c.car_codigo 
+where up.per_codigo = p.per_codigo 
+order by up.uap_codigo desc) as cargo,
+(select top 1 na.nia_nombre from persona_historia_academica pha
+inner join nivel_academico na on pha.nia_codigo = na.nia_codigo 
+where pha.per_codigo = p.per_codigo 
+ORDER by pha.pha_codigo desc) as escolaridad 
+from encuestas.respuestas_cuestionarios rc 
+left join persona p on rc.per_codigo = p.per_codigo 
+left join estado_civil ec on p.per_estado_civil = ec.esc_codigo 
+where rc.cue_codigo = 22 
+--and convert(Date, rc.rcu_fecha) BETWEEN '2023-11-21' AND '2023-12-04'
 
 ----------------------------------------------------------------
 -----------------------BIENESTAR 2024-2-------------------------

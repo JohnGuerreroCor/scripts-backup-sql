@@ -13,8 +13,9 @@ select * from CM_SEC_CATEGORY_T csct
 select * from SAKAI_USER su 
 
 
-
-
+select * from CONTENT_RESOURCE cr 
+select * from CONTENT_COLLECTION
+select * from CONTENT_RESOURCE_BODY_BINARY
 
 
 

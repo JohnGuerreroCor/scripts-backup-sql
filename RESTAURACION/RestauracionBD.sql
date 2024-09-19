@@ -58,7 +58,7 @@ VALUES (146624, 317, 463, 1);
 --INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
 VALUES (146624, 88, 645, 1);
 
-select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado = 1
+select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado = 1;
 
 --CREACIÓN DE GRUPO
 --INSERT INTO grupo (gru_nombre, gru_id, gru_estado)
@@ -67,12 +67,12 @@ VALUES ('Nota_Usuario_Registro', 'NOTA_USUARIO_REGISTRO', 1);
 --CONSULTAR PERFILES DE UNA PERSONA
 select * from usuario_grupo ug
 inner join grupo g on ug.usg_grupo = g.gru_codigo
-where ug.usg_usuario = 146624 and ug.usg_estado = 1
+where ug.usg_usuario = 146624 and ug.usg_estado = 1;
 
 select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado = 1
 
 --VER GRUPOS
-select * from grupo g where g.gru_codigo = 47 --88
+select * from grupo g where g.gru_codigo = 317 --88
 
 select * from grupo g where g.gru_nombre like '%RESTAURANTE%'
 

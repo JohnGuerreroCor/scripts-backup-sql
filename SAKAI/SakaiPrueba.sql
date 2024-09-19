@@ -120,7 +120,13 @@ select * from SAKAI_USER su where su.USER_ID like '%u%';
 select * from SAKAI_USER su where su.TYPE = 'maintainer'
 SELECT * FROM SAKAI_REALM sr where sr.REALM_KEY = '9a2b9190-7bac-4bb5-973c-2ba44a5b326e'
 
+--**********************************--
+--******STORAGE AREA NETWORK********--
+--**********************************--
 
+select * from CONTENT_RESOURCE 
+select * from CONTENT_COLLECTION
+select * from CONTENT_RESOURCE_BODY_BINARY
 
 SELECT count(*) FROM SAKAI_SITE ss
 

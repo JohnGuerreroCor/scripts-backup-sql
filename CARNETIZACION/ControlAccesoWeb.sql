@@ -98,8 +98,16 @@ select * from uaa u where u.uaa_nombre_corto like '%FACULTAD%'
 -------CONSULTAS---------
 -------------------------
 
+select * from modulo m 
+
+SELECT * FROM carnetizacion.vigilantes v 
+
 select * from carnetizacion.vigilante v where
 
+select * from carnetizacion.control_acceso ca 
+select * from carnetizacion.control_acceso_tipo cat 
+
+SELECT wep_valor FROM dbo.web_parametro wp where wp.wep_codigo = 377
 
 select top 1 * from carnetizacion.vigilante v 
 inner join tipo_id ti on v.tii_codigo = ti.tii_codigo 

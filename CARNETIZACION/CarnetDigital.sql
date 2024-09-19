@@ -93,7 +93,39 @@ GROUP BY per.per_nombre, cal.cal_nombre, mat.mat_estado, mti.mti_nombre,  ppcp.p
 ORDER by per_nombre
 
 
-select puntaje_calificado from puntaje_calificado_estudiante_activo pcea where pcea.est_codigo = '20171155993' 
+select u.uaa_nombre, pcea.est_codigo, puntaje_calificado from puntaje_calificado_estudiante_activo pcea 
+inner join programa p on pcea.pro_codigo = p.pro_codigo 
+inner join uaa u on p.uaa_codigo = u.uaa_codigo 
+where pcea.pro_codigo = 516
+
+select * from programa p where p.pro_codigo = 516
+
+select u.uaa_nombre, pcgsp.est_codigo, puntaje_calificado from puntaje_calificado_graduado_con_perdidas pcgsp
+inner join programa p on pcgsp.pro_codigo = p.pro_codigo 
+inner join uaa u on p.uaa_codigo = u.uaa_codigo 
+where pcgsp.pro_codigo = 516
+
+select * from in
+
+
+select * from programa p
+inner join uaa u on p.uaa_codigo = u.uaa_codigo 
+where u.uaa_nombre like '%licenciatura%'
+
+-- 405, 406, 228
+
+select * from programa p where p.uaa_codigo_unificado = 822
+
+228
+366
+371
+405
+516
+588
+
+select * from programa p 
+inner join uaa u on p.uaa_codigo = u.uaa_codigo 
+where p.pro_codigo in (228,366,371,405,516,588)
 
 select p.pro_codigo, u.uaa_codigo, ua.uaa_nombre as facultad, 
 p.pro_registro_snies, u.uaa_nombre, s.sed_nombre, ca.pla_codigo, ca.pla_total_creditos, 
@@ -359,3 +391,4 @@ inner join nivel_academico_tipo nat on na.nat_codigo = nat.nat_codigo
 where nat.nat_codigo = 1
 
 
+select *, GETDATE() as horaInicioSesion from dbo.usuario_graduado_admin_login ugal inner join uaa u on u.uaa_codigo = ugal.usg_uaa inner join sede s on s.sed_codigo = u.sed_codigo inner join persona p on p.per_codigo = ugal.up where  us = 'a1075303330' 
