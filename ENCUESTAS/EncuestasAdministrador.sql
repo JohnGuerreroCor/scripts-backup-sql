@@ -1,3 +1,29 @@
+
+--Agregar columna uaa a la tabla de respuestas de encuestas
+ALTER TABLE encuestas.respuestas_opciones ADD uaa_codigo int NULL;
+
+--Actulizar registros anteriores con la UAA de la Universidad Surcolombiana
+--select * from uaa u where u.uaa_codigo = 315
+UPDATE encuestas.respuestas_opciones SET uaa_codigo = 315;
+
+--Agregar la llave foránea a la columna agregada para asegurar la integridad de los datos
+ALTER TABLE encuestas.respuestas_opciones
+ADD CONSTRAINT respuestas_opciones_FK_uaa
+FOREIGN KEY (uaa_codigo) REFERENCES dbo.uaa(uaa_codigo);
+
+--Consultar el cambio realizado
+select * from encuestas.respuestas_opciones ro 
+
+select * from dbo.uaa u where u.uaa_nombre like '%UNIVERSIDAD%'
+
+
+
+select * from encuestas.preguntas p 
+
+select * from academia3000_john.graduado.soporte_fecha_expedicion sfe 
+
+
+
 SELECT distinct m.* FROM matricula_virtual m 
 LEFT JOIN curso_virtual c ON m.cur_codigo = c.cur_codigo 
 WHERE m.cal_codigo in (select cal_codigo from calendario where cal_nombre like '20241%')
@@ -6,10 +32,17 @@ WHERE m.cal_codigo in (select cal_codigo from calendario where cal_nombre like '
 select * from web_parametro wp where wp.wep_nombre like '%EDUCACION_VIRTUAL%'
 
 
+select * from encuestas.respuestas_opciones ro 
+
+select * from dbo.persona p where p.per_apellido like '%ari%'
+
 select * from encuestas.cuestionarios c 
 
+select * from encuestas.preguntas p where p.cue_codigo = 51
 
+select * from encuestas.respuestas_opciones ro 
 
+select * from sgd.tipo_documento td 
 
 select * from web_parametro wp where wp.wep_codigo in (419,433)
 
@@ -34,6 +67,7 @@ LEFT JOIN curso_virtual c ON m.cur_codigo = c.cur_codigo
 
 select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 32 and rc.
 
+select * from carnetizacion.usuario_carnet_digital_login ucdl 
 
 
 

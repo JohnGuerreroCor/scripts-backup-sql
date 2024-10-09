@@ -628,6 +628,17 @@ left join academia3000_john.graduado.encuesta_egresado ee on hl.per_codigo = ee.
 -------------------------
 -------CONSULTAS---------
 -------------------------
+
+--Solicitamos muy amablemente el listado de los graduados del programa en sus 2 denominaciones educación infantil y pedagogía infantil 
+--de la ciudad de Neiva y de las sedes  desde los años 2019 ,2020,2021,2022,2023,2024 hasta la fecha, 
+--esto con el fin de continuar con los procesos que se requieren para mantener la calificación de categoría B frente a los procesos de acreditación próximamente.
+
+select * from acad
+
+select * from academia3000_john.graduado.datos_complementarios dc 
+
+
+
 select * from graduado.competencia_respuesta cr 
 inner join persona p on cr.per_codigo = p.per_codigo 
 inner join graduado.competencia_pregunta cp on cr.cop_codigo = cp.cop_codigo 

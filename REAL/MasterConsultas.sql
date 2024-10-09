@@ -1,4 +1,4 @@
-SELECT * FROM dbo.matricula m INNER JOIN dbo.estudiante e on m.est_codigo = e.est_codigo INNER JOIN dbo.persona pe on e.per_codigo = pe.per_codigo INNER JOIN dbo.calendario c ON c.cal_codigo = m.cal_codigo INNER JOIN dbo.periodo p ON p.per_codigo = c.per_codigo WHERE pe.per_codigo = '1003814391'  AND convert(Date, GETDATE()) BETWEEN p.per_fecha_inicio AND p.per_fecha_fin
+select * from sibusco.restaurante_contrato rc select * from dbo.persona p where p.per_apellido like '%ariza%' and p.per_nombre like '%carol%'8741771751600187821126922select * from dbo.uaa_personal up where up.per_codigo = 126922select * from estudiante e where e.per_codigo = 144280select * from dbo.persona p where p.per_codigo = 1442802019117705320242229490select * from dbo.matricula m where m.est_codigo = '20242229490'select * from carnetizacion.usuario_carnet_digital_login ucdl where ucdl.us = 'a1077865570'select * from dbo.estudiante_virtual ev where ev.per_codigo = 79319select * from token.codigo_inicio_sesion cis where cis.uid = 175686select * from dbo.autorizacion_terminos at2 --Solicitamos muy amablemente el listado de los graduados del programa en sus 2 denominaciones educación infantil y pedagogía infantil --de la ciudad de Neiva y de las sedes  desde los años 2019 ,2020,2021,2022,2023,2024 hasta la fecha, --esto con el fin de continuar con los procesos que se requieren para mantener la calificación de categoría B frente a los procesos de acreditación próximamente.select pr.per_identificacion, pr.per_apellido, pr.per_nombre, e.est_codigo, u.uaa_nombre_corto, g.gra_fecha, dc.dac_trabajo_grado  from dbo.graduado g inner join dbo.estudiante e on g.est_codigo = e.est_codigo inner join dbo.persona pr on e.per_codigo = pr.per_codigo inner join dbo.programa p on e.pro_codigo = p.pro_codigo inner join dbo.uaa u on p.uaa_codigo = u.uaa_codigo left join academia3000.graduado.datos_complementarios dc on g.est_codigo = dc.est_codigo where p.pro_codigo in (1, 14, 28, 98, 102, 238, 309, 365, 370, 480) and CONVERT(DATE, g.gra_fecha) BETWEEN '2019-01-01' and '2024-09-27'order by g.gra_fecha desc;select * from uaa u where u.uaa_nombre ;select * from programa p inner join nivel_academico na on p.nia_codigo = na.nia_codigo inner join nivel_academico_tipo nat on na.nat_codigo = nat.nat_codigo where p.uaa_codigo_unificado = 811 and nat.nat_codigo in (1,2)select * from dbo.terminos_condiciones tc select * from estudiante e where e.est_codigo like '%20232%'SELECT * FROM dbo.matricula m INNER JOIN dbo.estudiante e on m.est_codigo = e.est_codigo INNER JOIN dbo.persona pe on e.per_codigo = pe.per_codigo INNER JOIN dbo.calendario c ON c.cal_codigo = m.cal_codigo INNER JOIN dbo.periodo p ON p.per_codigo = c.per_codigo WHERE pe.per_codigo = '1003814391'  AND convert(Date, GETDATE()) BETWEEN p.per_fecha_inicio AND p.per_fecha_fin
 
 
 SELECT docente.per_identificacion AS doc_identificacion, docente.per_apellido AS doc_apellido , 
@@ -13,7 +13,7 @@ docente.per_apellido ,docente.per_nombre ,evaluador.per_codigo, evaluador.per_id
 evaluador.per_apellido ,evaluador.per_nombre, ed.evd_uaa;
 
 
-
+select * from web_parametro wp where wp.wep_nombre like '%EDUCACION%'SELECT * FROM periodo p 
 
 
 SELECT docente.per_identificacion AS doc_identificacion, docente.per_apellido AS doc_apellido , 
@@ -276,7 +276,7 @@ select * from persona p where p.per_nombre like '%angela%' and p.per_apellido li
 select * from persona p where p.per_nombre like '%sergio andres%' and p.per_apellido like '%ninco%'
 select * from persona p where p.per_nombre like '%zully%' and p.per_apellido like '%cuellar lopez%'
 select * from persona p where p.per_nombre like '%julian marino%' and p.per_apellido like '%trujillo%'
-select * from persona p where p.per_codigo = 129470
+select * from persona p where p.per_codigo = 129470;
 
 select * from estudiante e where e.per_codigo = 119299
 

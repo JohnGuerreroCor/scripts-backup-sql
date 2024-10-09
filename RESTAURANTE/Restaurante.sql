@@ -51,10 +51,14 @@ select * from sibusco.restaurante_horario_servicio rhs where rhs.rhs_uaa_codigo 
 
 select * from sibusco.restaurante_consumo rc 
 
+select * from sibusco.restaurante_contrato rc 
+
+select * from sibusco.restaurante_venta rv 
+
 WITH ConsumoPorRestaurante AS
 (SELECT rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo, COUNT(*) AS consumo FROM sibusco.restaurante_consumo rc
 left join sibusco.restaurante_grupo_gabu rgg on rc.per_codigo = rgg.per_codigo 
-WHERE rc.uaa_codigo = 645  and rc.rcn_fecha = CONVERT(DATE, '2024-09-04') and rgg.per_codigo IS NULL
+WHERE rc.uaa_codigo = 647 and rc.rcn_fecha = CONVERT(DATE, '2024-10-02') and rgg.per_codigo IS NULL
 GROUP BY rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo)
 SELECT rhs.rts_codigo, rts.rts_nombre, rhs.rhs_uaa_codigo, rs.uaa_nombre, rhs.rhs_cantidad_comidas,
 consumo, rhs.rhs_cantidad_comidas - c.consumo AS raciones_disponibles, rhs.rhs_hora_inicio_atencion,
@@ -62,7 +66,7 @@ rhs.rhs_hora_fin_atencion FROM sibusco.restaurante_horario_servicio rhs
 INNER JOIN ConsumoPorRestaurante c ON rhs.rhs_uaa_codigo = c.uaa_codigo AND rhs.rts_codigo = c.rts_codigo
 INNER JOIN sibusco.restaurante_tipo_servicio rts on rhs.rts_codigo = rts.rts_codigo
 INNER JOIN sibusco.restaurante_sede rs on rhs.rhs_uaa_codigo = rs.uaa_codigo
-WHERE CONVERT(TIME, '09:00:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion
+WHERE CONVERT(TIME, '08:00:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion
 
 
 select * from sibusco.restaurante_venta rv 
