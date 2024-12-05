@@ -1,3 +1,5 @@
+select * from web_parametro wp where wp.wep_nombre like '%virtual%'
+
 select * from  curso_virtual cv where cv.cur_url is not null
 
 

@@ -1,3 +1,7 @@
+select * from encuestas.respuestas_opciones ro 
+
+select * from encuestas.preguntas p 
+
 
 --Agregar columna uaa a la tabla de respuestas de encuestas
 ALTER TABLE encuestas.respuestas_opciones ADD uaa_codigo int NULL;

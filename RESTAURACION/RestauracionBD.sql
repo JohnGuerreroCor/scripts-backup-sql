@@ -18,6 +18,10 @@ select * from web_parametro wp where wp.wep_nombre like '%SINCRONIZADOR%'
 
 select * from curso_virtual
 
+---NOTAS PARCIALES
+
+select * from cursoweb.curso_nota cn where cn.cun_estudiante = '20171157616' and cn.cun_curso = 140893;
+
 --CAMBIO DE CORREO MASIVO
 --update uaa set uaa_email = 'guerrerocordobajohn@gmail.com'
 --update persona set per_email = 'guerrerocordobajohn@gmail.com', per_email_interno = 'john.guerrero@usco.edu.co';
@@ -43,10 +47,6 @@ VALUES (146624, 328, 463, 1);
 --INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
 VALUES (146624, 328, 463, 1);
 
---ASIGNAR PERFIL SUPER ENCUESTAS ADMON JOHN
---INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
-VALUES (146624, 328, 463, 1);
-
 --ASIGNAR PERFIL CARNETIZACION ADMON JOHN
 --INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
 VALUES (146624, 316, 463, 1);
@@ -63,6 +63,11 @@ VALUES (146624, 317, 463, 1);
 --INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
 VALUES (146624, 88, 645, 1);
 
+--ASIGNAR PERFIL RESTAURANTE VENTANILLA 
+--INSERT INTO usuario_grupo (usg_usuario, usg_grupo, usg_uaa, usg_estado)
+VALUES (174548, 136, 645, 1);
+
+--VER PERFILES ACTIVOS USUARIO POR UID
 select * from usuario_grupo ug
 inner join grupo g on ug.usg_grupo = g.gru_codigo 
 where ug.usg_usuario = 146624 and ug.usg_estado = 1;
@@ -74,17 +79,19 @@ VALUES ('Nota_Usuario_Registro', 'NOTA_USUARIO_REGISTRO', 1);
 --CONSULTAR PERFILES DE UNA PERSONA
 select * from usuario_grupo ug
 inner join grupo g on ug.usg_grupo = g.gru_codigo
-where ug.usg_usuario = 146624 and ug.usg_estado = 1;
+where ug.usg_usuario = 174548 and ug.usg_estado = 1;
 
 select * from usuario_grupo ug where ug.usg_usuario = 146624 and ug.usg_estado = 1
 
 --VER GRUPOS
-select * from grupo g where g.gru_codigo = 317 --88
+select * from grupo g where G.gru_nombre LIKE '%RESTA%'
 
 select * from grupo g where g.gru_nombre like '%RESTAURANTE%'
 
+select * from persona p where p.per_identificacion = '1078746200'
+
 --CONSULTAR USG POR PERCODIGO
-select * from usuario_administrativo_login ual where ual.up = 108797
+select * from usuario_administrativo_login ual where ual.up = 149849
 
 select * from usuario_graduado_admin_login
 

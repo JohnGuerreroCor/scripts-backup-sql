@@ -8,6 +8,10 @@
 ----------------------------------------------------------------
 -----------------------SEYSATRA 2024-2--------------------------
 ----------------------------------------------------------------
+select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 45
+
+select * from dbo.web_parametro wp where wp.wep_nombre like '%sgd%'
+
 select * from encuestas.cuestionarios c where c.cue_estado = 1
 
 select * from encuestas.cuestionarios c --- 22
@@ -28,7 +32,7 @@ inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
 inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
 inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-08-20' AND '2024-09-13'  
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-09-14' AND '2024-10-15'  
 ) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 
 
@@ -39,7 +43,7 @@ select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto fr
 inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
 inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-08-20' AND '2024-09-13'   
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-09-14' AND '2024-10-15' 
 ) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 
 
@@ -299,7 +303,7 @@ inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
 inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
 inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 45
+where rc.cue_codigo = 45 and convert(Date, rc.rcu_fecha) BETWEEN '2024-10-10' AND '2024-10-11'   
 ) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([1129],[1130],[1131],[1133],[1134],[1135],[1137],[1138],[1139],[1141],[1142],[1143],[1144],[1145],[1146],[1147],[1148],[1149],[1150],[1151],[1152],[1153],[1154],[1155],[1156],[1158],[1159],[1160],[1161],[1162],[1163],[1164],[1166],[1167],[1168],[1169],[1170],[1171],[1172],[1173],[1174],[1175],[1176],[1177],[1180],[1181],[1182],[1183],[1184],[1185],[1186],[1187],[1189],[1190],[1191],[1192],[1193],[1194],[1195],[1196],[1197],[1198],[1199],[1200],[1201],[1202])) as pvt
 
 select DISTINCT rc.rcu_codigo, s.sed_nombre from encuestas.respuestas_cuestionarios rc  
@@ -315,7 +319,7 @@ select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto fr
 inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
 inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 45
+where rc.cue_codigo = 45 and convert(Date, rc.rcu_fecha) BETWEEN '2024-10-10' AND '2024-10-11'
 ) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([1129],[1130],[1156])) as pvt
 
 --ENCUESTA DIAGNOSTICO SEGURIDAD VIAL DATOS COMPLEMENTARIOS
@@ -716,7 +720,7 @@ inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
 inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
 inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22  
+where rc.cue_codigo = 22 and rc.per_codigo = 138480
 ) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 --and convert(Date, rc.rcu_fecha) BETWEEN '2023-04-01' AND '2023-04-30'
 --and convert(Date, rc.rcu_fecha) BETWEEN '2023-11-21' AND '2023-12-04'
@@ -729,7 +733,7 @@ select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto fr
 inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
 inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22 
+where rc.cue_codigo = 22 and rc.per_codigo = 142027
 ) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 --and convert(Date, rc.rcu_fecha) BETWEEN '2022-05-18' AND '2022-06-24'
 

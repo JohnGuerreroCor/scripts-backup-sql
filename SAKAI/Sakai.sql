@@ -19,7 +19,7 @@ select * from CONTENT_RESOURCE_BODY_BINARY
 
 
 
-
+select * from
 
 
 

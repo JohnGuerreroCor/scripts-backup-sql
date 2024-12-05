@@ -29,6 +29,49 @@ VALUES('VIGENCIA_QR_RESTAURANTE', 600 , 'TIEMPO VIGENCIA QR RESTAURANTE, QR CAMB
 -------------------------
 
 
+select * from carnetizacion.politica_estamento pe 
+
+select * from dbo.autorizacion_terminos at2 
+
+select * from dbo.terminos_condiciones tc 
+
+---------------------------
+----------CAMPUS-----------
+---------------------------
+
+select * from sede s where s.sed_estado = 1 and s.sippa_sed_codigo is not null
+
+
+select * from usuario_sibusco_restaurante_login usrl where usrl.usg_uaa = 645
+
+select * from sibusco.restaurante_venta rv 
+select * from sibusco.restaurante_consumo rc 
+
+select * from sibusco.restaurante_dias_horario_servicio rdhs 
+select * from sibusco.restaurante_horario_servicio rhs 
+
+
+
+---------------------------
+----------CAMPUS-----------
+---------------------------
+
+
+select * from carnetizacion.usuario_carnet_digital ucdl where ucdl.up = 83865
+
+
+select * from dbo.estudiante e 
+inner join programa p on e.pro_codigo = p.pro_codigo 
+inner join nivel_academico na on p.nia_codigo = na.nia_codigo
+inner join nivel_academico_tipo nat on na.nat_codigo = nat.nat_codigo
+where e.est_registro_egresado = 0 and nat.nat_codigo = 1;
+
+select * from persona p where p.per_identificacion = '1075282351'
+
+select * from uaa_personal up where up.per_codigo = 83865
+
+select * from nivel_academico_tipo nat 
+
 select top 1 *, GETDATE() as horaInicioSesion from carnetizacion.usuario_carnet_digital_login ucdl 
 inner join uaa u on ucdl.usg_uaa = u.uaa_codigo 
 inner join sede s on s.sed_codigo = u.sed_codigo 
@@ -105,7 +148,9 @@ inner join programa p on pcgsp.pro_codigo = p.pro_codigo
 inner join uaa u on p.uaa_codigo = u.uaa_codigo 
 where pcgsp.pro_codigo = 516
 
-select * from in
+select * from estudiante e 
+inner join programa p on e.pro_codigo = p.pro_codigo 
+where e.est_registro_egresado = 0 and p.cam_det_codigo is not null
 
 
 select * from programa p
@@ -206,6 +251,8 @@ select * from curso c where c.cur_codigo = 140869;
 
 select * from cursoweb.curso_evaluacion ce;
 
+select * from encuestas.
+select * from dbo.estudiante e where e.est_registro_egresado = 0
 
 SELECT c.cur_codigo, pr.per_nombre as periodo, nt.paa_semestre, 
 nt.paa_credito, nt.asi_nombre_corto, nt.asi_nombre, nt.mac_nota, 
@@ -310,7 +357,7 @@ INNER JOIN uaa uaa WITH(NOLOCK) ON pro.uaa_codigo = uaa.uaa_codigo
 WHERE cur.cur_codigo = :cur_codigo AND mac.maf_codigo not in (6,11) 
 ORDER BY mac.mac_subgrupo,per.per_apellido, per.per_nombre 
 
-
+select * from asignatura a 
 
 --- La carga academica la hace Douglas y javier mediante un monton de querys y cosas locas
 --- para los datos personal esta este query que tengo en un reporte de estadisticas y funciona,
