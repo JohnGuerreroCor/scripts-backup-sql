@@ -28,12 +28,23 @@ VALUES('VIGENCIA_QR_RESTAURANTE', 600 , 'TIEMPO VIGENCIA QR RESTAURANTE, QR CAMB
 -------CONSULTAS---------
 -------------------------
 
+select * from persona p where p.per_apellido = 'GONZALEZ SILVA'
+
+select top 1 *, GETDATE() as horaInicioSesion from encuestas.usuario_encuesta_web_login ucdl 
+inner join uaa u on ucdl.usg_uaa = u.uaa_codigo 
+inner join sede s on s.sed_codigo = u.sed_codigo 
+inner join persona p on ucdl.up = p.per_codigo 
+where  ucdl.us = 'u20212200048' order by ucdl.usg_codigo desc
+
+select * from uaa_personal up where up.per_codigo = 108797
 
 select * from carnetizacion.politica_estamento pe 
 
 select * from dbo.autorizacion_terminos at2 
 
 select * from dbo.terminos_condiciones tc 
+
+select * from dbo.bloque b 
 
 ---------------------------
 ----------CAMPUS-----------

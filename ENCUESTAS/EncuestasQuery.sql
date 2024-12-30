@@ -16,7 +16,7 @@ select * from encuestas.cuestionarios c where c.cue_estado = 1
 
 select * from encuestas.cuestionarios c --- 22
 select * from encuestas.preguntas p where p.cue_codigo = 22 and p.pre_estado = 1
-select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 32
+select * from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 order by rc.rcu_codigo asc
 select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 2
 select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 4
 select count(*) from encuestas.respuestas_cuestionarios rc where rc.cue_codigo = 22 and rc.rcu_estamento = 3
@@ -32,7 +32,7 @@ inner JOIN encuestas.preguntas_respuestas pr on r.prr_codigo = pr.prr_codigo
 inner join encuestas.preguntas p on pr.pre_codigo = p.pre_codigo 
 inner JOIN encuestas.respuestas_opciones ro on pr.rop_codigo = ro.rop_codigo 
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-09-14' AND '2024-10-15'  
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-01-01' AND '2024-12-17'  
 ) SELECT * from resultado pivot( max(rop_descripcion) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 
 
@@ -43,7 +43,7 @@ select rc.rcu_codigo, rc.per_codigo, tu.tus_nombre, p.pre_codigo, r.res_texto fr
 inner JOIN encuestas.respuestas r on r.rcu_codigo = rc.rcu_codigo
 inner join encuestas.preguntas p on r.pre_codigo = p.pre_codigo  
 inner join dbo.usuario_tipo tu on rc.rcu_estamento = tu.tus_codigo 
-where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-09-14' AND '2024-10-15' 
+where rc.cue_codigo = 22 and convert(Date, rc.rcu_fecha) BETWEEN '2024-01-01' AND '2024-12-17' 
 ) SELECT * from resultado pivot( max(res_texto) FOR pre_codigo in ([569],[570],[571],[572],[573],[574],[575],[576],[577],[578],[579],[580],[581],[582],[583],[584],[585],[586],[587],[588],[589],[590],[591],[592],[593],[594],[595],[596],[597],[598],[599],[600],[601],[697],[698],[699],[702],[703],[704],[705],[706],[707],[708],[709],[710],[711],[712],[713],[714],[715],[716],[718],[719],[720],[721],[722],[723],[724],[725],[726])) as pvt
 
 
