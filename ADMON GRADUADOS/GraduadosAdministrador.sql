@@ -1176,7 +1176,7 @@ join periodo p2 on g.gra_fecha >= p2.per_fecha_inicio and g.gra_fecha <= p2.per_
 where p.pro_codigo = 418 and p2.per_nombre = '20232'
 ---------------------------------------------------------------------------------------------
 
-
+select * from uaa_personal up where up.per_codigo = 108797
 
 
 SELECT * from persona p where p.per_codigo = 108797

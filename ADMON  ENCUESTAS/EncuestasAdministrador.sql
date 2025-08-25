@@ -1,3 +1,53 @@
+select * from encuestas.cuestionario_configuracion cc 
+
+INSERT INTO encuestas.cuestionarios (cue_nombre, cue_instrucciones, uaa_codigo, cue_estado, cue_fecha_inicio, cue_fecha_fin) VALUES(N'INDUCCIÓN-EVALUACIÓN SG-SST 2025', N'El SG-SST se estructura bajo los requerimientos del Decreto 1072 de 2015 y demás requisitos legales aplicables. Además se fundamenta en la metodología PHVA (Planear - Hacer - Verificar - Actuar) basado en la mejora continua de forma que se articula con los otros Sistema de Gestión de la Universidad.', 627, 1, '2021-05-11 00:00:00.000', '2021-05-11 00:00:00.000');
+
+select * from usuario_administrativos ua where ua.up = 45503
+select * from usuario_administrativos ua where ua.up = 108797
+
+selec
+
+--45503
+select * from encuestas.cuestionarios c where c.uaa_codigo = 463 and c.cue_estado = 1;
+
+ALTER TABLE encuestas.cuestionarios
+ALTER COLUMN cue_nombre varchar(250) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL;
+
+SELECT c.cue_codigo, c.cue_nombre, u.uaa_codigo, u.uaa_nombre, c.cue_fecha_fin, 
+c.cue_fecha_inicio, COUNT(rc.rcu_codigo) AS total_respuestas from encuestas.cuestionarios c 
+inner join dbo.uaa u on c.uaa_codigo= u.uaa_codigo 
+LEFT JOIN encuestas.respuestas_cuestionarios rc ON c.cue_codigo = rc.cue_codigo
+where c.cue_estado = 1 and rc.rcu_estado = 1 and u.uaa_codigo = 463
+GROUP BY c.cue_codigo, c.cue_nombre, u.uaa_codigo, u.uaa_nombre, c.cue_fecha_fin, c.cue_fecha_inicio
+order by c.cue_codigo desc;
+
+select * from encuestas.respuestas_cuestionarios rc where rc.per_codigo = 108797;
+
+select * from encuestas.cuestionarios c;
+select * from encuestas.preguntas p where p.cue_codigo = 22 and p.pre_estado = 1;
+
+SELECT c.cue_codigo, c.cue_nombre, u.uaa_codigo, u.uaa_nombre, c.cue_fecha_fin, 
+c.cue_fecha_inicio, COUNT(rc.rcu_codigo) AS total_respuestas from encuestas.cuestionarios c 
+inner join dbo.uaa u on c.uaa_codigo= u.uaa_codigo 
+LEFT JOIN encuestas.respuestas_cuestionarios rc ON c.cue_codigo = rc.cue_codigo
+where c.cue_estado = 1 and rc.rcu_estado = 1 
+GROUP BY c.cue_codigo, c.cue_nombre, u.uaa_codigo, u.uaa_nombre, c.cue_fecha_fin, c.cue_fecha_inicio
+order by c.cue_codigo desc;
+
+
+UPDATE encuestas.respuestas_cuestionarios SET rcu_estado = 0 WHERE cue_codigo = 2;
+
+
+SELECT 
+    c.cue_codigo,
+    c.cue_nombre,
+    COUNT(rc.rcu_codigo) AS total_respuestas
+FROM encuestas.cuestionarios c
+LEFT JOIN encuestas.respuestas_cuestionarios rc ON c.cue_codigo = rc.cue_codigo
+GROUP BY c.cue_codigo, c.cue_nombre
+
+select * from encuestas.respuestas_cuestionarios rc 
+
 select * from encuestas.respuestas_opciones ro 
 
 select * from encuestas.preguntas p 

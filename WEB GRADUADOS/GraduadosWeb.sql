@@ -2,29 +2,6 @@ select count(*) from academia3000.graduado.competencia_respuesta cr
 select * from persona p where p.per_codigo = 51065
 
 
-INSERT INTO
-    academia3000_john.dbo.graduado (
-        est_codigo,
-        pla_codigo,
-        gra_acta,
-        gra_folio,
-        gra_libro,
-        gra_fecha,
-        grc_codigo,
-        gra_user
-    )
-VALUES
-(
-        N'2006263397 ',
-        497,
-        N'744  ',
-        N'1392 ',
-        N'4    ',
-        getdate(),
-        NULL,
-        N'registro_mayraalejandra                 '
-    );
-
 CREATE TABLE academia3000_john.graduado.inicio_sesion_graduado (
 	isg_codigo int IDENTITY(1,1) NOT NULL,
 	mod_codigo int NOT NULL,

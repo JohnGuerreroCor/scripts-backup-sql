@@ -115,7 +115,9 @@ select * from dbo.web_parametro wp where wp.wep_nombre like '%car%'
 
 --lalajimena226@gmail.com
 
-select * from ileusco.estudiantes_activos_ileusco eai where eai.per_identificacion = '1075797796';---1028481471
+select * from ileusco.estudiantes_activos_ileusco eai where eai.pter_identificacion = '1003895686';---1028481471
+
+select * from persona p where p.per_identificacion = 
 
 select * from academia3000_john.ileusco.registro r where r.reg_ter_codigo = 144132;
 select * from academia3000_john.ileusco.registro r where r.reg_per_codigo = 158218;
@@ -123,7 +125,9 @@ select * from academia3000_john.ileusco.registro r where r.reg_per_codigo = 1582
 UPDATE academia3000_john.ileusco.registro SET reg_email='laurasofiamorales2024@gmail.com' WHERE reg_ter_codigo=144132;
 UPDATE academia3000_john.ileusco.registro SET reg_email='betorenfsck@gmail.com' WHERE reg_per_codigo=158218;
 
-select * from carnetizacion.ticket_estudiante_ileusco tei where tei.eil_codigo = 144132; 
+select * from carnetizacion.ticket_estudiante_ileusco tei where tei.eil_codigo = 188033;
+select * from carnetizacion.ticket_estudiante_ileusco tei where tei.eil_codigo = 188814;
+select * from carnetizacion.ticket_estudiante_ileusco tei where tei.eil_codigo = 182013;
 
 
 

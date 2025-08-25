@@ -1,0 +1,1 @@
+select * from web_parametro wp where wp.wep_nombre like '%ENCUESTA%'

@@ -1,6 +1,126 @@
+--******************--
+--******PQRS********--
+--******************--
+select top 1 *, GETDATE() as horaInicioSesion from carnetizacion.usuario_carnet_digital_login ucdl inner join uaa u on ucdl.usg_uaa = u.uaa_codigo inner join sede s on s.sed_codigo = u.sed_codigo inner join persona p on ucdl.up = p.per_codigo where  ucdl.us = '1075303330' and ucdl.usg_usuario != 136525 order by ucdl.istipo asc
+
+select sot_codigo, sot_tipo, sot_descripcion from pqrsdc.solicitud_tipo 
+where sot_estado = 1 order by sot_tipo;
+
+select d.uaa_codigo, uaa.uaa_nombre_corto from pqrsdc.dependencia d 
+inner join uaa ON d.uaa_codigo = uaa.uaa_codigo 
+where d.dep_estado = 1 order by uaa_nombre_corto;
+
+select treqs_codigo, treqs_descripcion from sgd.tipo_requerimientos_simples_2 
+where treqs_origen = 'E' and treqs_estado = 'a' and uaa_codigo = 463 
+order by treqs_descripcion asc;
+
+
+select * from pqrsdc.solicitud s 
+inner join pqrsdc.solicitud_tipo st on s.sot_codigo = st.sot_codigo
+inner join dbo.uaa u on s.uaa_codigo = u.uaa_codigo 
+inner join pqrsdc.estado e on s.sol_estado = e.est_codigo 
+where 
+
+select * from pqrsdc.estado e 
+
+
+select * from pqrsdc.solicitud s 
+inner join pqrsdc.solicitud_usuario su on s.sol_codigo = su.sol_codigo 
+left join pqrsdc.solicitud_tipo st on s.sot_codigo = st.sot_codigo
+left join dbo.uaa u on s.uaa_codigo = u.uaa_codigo 
+left join pqrsdc.estado e on s.sol_estado = e.est_codigo
+WHERE su.usuario_codigo = 174242 order by s.sol_codigo desc;
+
+select * from dbo.uaa u ;
+select * from pqrsdc.solicitud_tipo st;
+
+select * from persona p where p.per_codigo = 174242;
+
+select * from usuario_tipo
+
+select * from estudiante e where e.per_codigo = 174242;
+
 --****************************--
 --******CARNET DIGITAL********--
 --****************************--
+
+select * from sibusco.restaurante_venta rv;
+select * from sibusco.restaurante_tipo_servicio rts;
+
+select * from graduado g where g.est_codigo = '2006264057 ';
+select * from persona p where p.per_codigo = 54508
+select * from estudiante e where e.per_codigo = 54508
+
+SELECT * FROM sibusco.restaurante_consumo rc LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rc.per_codigo = rgg.per_codigo WHERE rc.rts_codigo = 2 AND rc.rco_codigo = 16 AND rc.rcn_estado = 1 AND rc.rcn_fecha = CONVERT(DATE, '2025-02-13') AND (rgg.per_codigo IS NULL OR      rgg.rgg_estado = 0 OR      (rgg.rgg_vigencia < CONVERT(DATE, '2025-02-13')      AND NOT EXISTS (         SELECT 1 FROM sibusco.restaurante_grupo_gabu rgg2          WHERE rgg2.per_codigo = rgg.per_codigo          AND rgg2.rgg_vigencia >= CONVERT(DATE, '2025-02-13')     )));
+
+SELECT * FROM sibusco.restaurante_venta rv  LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rv.per_codigo = rgg.per_codigo  WHERE rv.rts_codigo = 2 AND rv.rco_codigo = 16  AND rv.rve_eliminado = 1  AND rv.rve_fecha = CONVERT(DATE, '2025-02-13')  AND (rgg.per_codigo IS NULL OR  (rgg.rgg_estado = 0 OR  (rgg.rgg_vigencia < CONVERT(DATE, '2025-02-13')  AND NOT EXISTS (     SELECT 1 FROM sibusco.restaurante_grupo_gabu rgg2      WHERE rgg2.per_codigo = rgg.per_codigo      AND rgg2.rgg_vigencia >= CONVERT(DATE, '2025-02-13') ))));
+
+
+SELECT * FROM sibusco.restaurante_venta rv 	LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rv.per_codigo = rgg.per_codigo 	WHERE rv.rts_codigo = 2 and rv.rve_estado = 0 AND rv.rve_eliminado = 1  AND rv.rco_codigo = 16  AND rv.rve_fecha = CONVERT(DATE, '2025-02-13')  AND rgg.per_codigo IS NULL
+
+
+WITH ConsumoPorRestaurante AS (SELECT rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo, COUNT(*) AS consumo FROM sibusco.restaurante_consumo rc left join sibusco.restaurante_grupo_gabu rgg on rc.per_codigo = rgg.per_codigo and rgg.rgg_estado = 1 and rgg.rgg_vigencia > (select p.per_fecha_inicio from dbo.periodo p where CONVERT(DATE, GETDATE()) BETWEEN p.per_fecha_inicio and p.per_fecha_fin)WHERE rc.uaa_codigo = 645 and rc.rcn_fecha = CONVERT(DATE,'2025-02-18') and rgg.per_codigo IS NULL GROUP BY rc.uaa_codigo, rc.rcn_fecha, rc.rts_codigo) SELECT rhs.rts_codigo, rts.rts_nombre, rhs.rhs_uaa_codigo, rs.uaa_nombre, rhs.rhs_cantidad_comidas, consumo, rhs.rhs_cantidad_comidas - c.consumo AS raciones_disponibles, rhs.rhs_hora_inicio_atencion, rhs.rhs_hora_fin_atencion FROM sibusco.restaurante_horario_servicio rhs INNER JOIN ConsumoPorRestaurante c ON rhs.rhs_uaa_codigo = c.uaa_codigo AND rhs.rts_codigo = c.rts_codigo INNER JOIN sibusco.restaurante_tipo_servicio rts on rhs.rts_codigo = rts.rts_codigo INNER JOIN sibusco.restaurante_sede rs on rhs.rhs_uaa_codigo = rs.uaa_codigo WHERE CONVERT(TIME, '14:00:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion
+
+
+WITH VentaPorRestaurante AS (SELECT rhs.rhs_uaa_codigo, rv.rts_codigo, COUNT(rv.rve_codigo) AS ventas FROM sibusco.restaurante_horario_servicio rhs INNER JOIN sibusco.restaurante_venta rv ON rhs.rhs_uaa_codigo = rv.uaa_codigo and rv.rve_fecha = CONVERT(DATE,'2025-02-13') left join sibusco.restaurante_grupo_gabu rgg on rv.per_codigo = rgg.per_codigo and rgg.rgg_estado = 1 and rgg.rgg_vigencia > (select p.per_fecha_inicio from dbo.periodo p where CONVERT(DATE, GETDATE()) BETWEEN p.per_fecha_inicio and p.per_fecha_fin)WHERE rhs.rhs_uaa_codigo = 645 AND (CONVERT(TIME,'14:00:00') BETWEEN rhs.rhs_hora_inicio_venta AND rhs.rhs_hora_fin_atencion and rv.rve_eliminado != 0 AND rgg.per_codigo IS NULL) GROUP BY rhs.rhs_uaa_codigo, rv.rts_codigo) SELECT rhs.rts_codigo, rts.rts_nombre, rhs.rhs_uaa_codigo, rs.uaa_nombre, rhs.rhs_cantidad_ventas_permitidas, ventas, rhs.rhs_cantidad_ventas_permitidas - v.ventas AS tiquetes_disponibles, rhs.rhs_hora_inicio_venta, rhs.rhs_hora_fin_venta FROM sibusco.restaurante_horario_servicio rhs INNER JOIN VentaPorRestaurante v ON rhs.rhs_uaa_codigo = v.rhs_uaa_codigo AND rhs.rts_codigo = v.rts_codigo INNER JOIN sibusco.restaurante_tipo_servicio rts on rhs.rts_codigo = rts.rts_codigo INNER JOIN sibusco.restaurante_sede rs on rhs.rhs_uaa_codigo = rs.uaa_codigo WHERE CONVERT(TIME,'14:00:00') BETWEEN rhs.rhs_hora_inicio_atencion AND rhs.rhs_hora_fin_atencion;
+
+select count(*) from sibusco.restaurante_venta rv where rv.rve_fecha = '2025-02-13' and rv.rts_codigo = 2 and rv.uaa_codigo = 645;
+
+select p.per_fecha_inicio from dbo.periodo p where CONVERT(DATE, GETDATE()) BETWEEN p.per_fecha_inicio and p.per_fecha_fin
+
+select * from dbo.periodo p
+
+SELECT * FROM sibusco.restaurante_venta rv
+LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rv.per_codigo = rgg.per_codigo AND rgg.rgg_estado = 1 and rgg.rgg_vigencia > '2025-02-03'
+WHERE rv.rve_fecha = '2025-02-13' AND rv.rts_codigo = 2 AND rv.uaa_codigo = 645;
+
+SELECT * FROM sibusco.restaurante_venta rv
+LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rv.per_codigo = rgg.per_codigo AND rgg.rgg_estado = 1 and rgg.rgg_vigencia > '2025-02-03'
+WHERE rv.rve_fecha = '2025-02-13' AND rv.rts_codigo = 2 AND rv.uaa_codigo = 645 and rgg.per_codigo IS NULL;
+
+SELECT * FROM sibusco.restaurante_venta rv
+LEFT JOIN sibusco.restaurante_grupo_gabu rgg ON rv.per_codigo = rgg.per_codigo AND rgg.rgg_estado = 1 and rgg.rgg_vigencia > '2025-02-03'
+WHERE rv.rve_fecha = '2025-02-13' AND rv.rts_codigo = 2 AND rv.uaa_codigo = 645 and rgg.per_codigo IS NOT NULL;
+
+select * from sibusco.restaurante_consumo rc 
+
+
+
+SELECT cur.pla_codigo, cur.asi_codigo, cur.cur_grupo, mac.mac_subgrupo, paa.paa_codigo, 
+asi.asi_nombre, eso.eso_subgrupo, hra.hra_codigo, hra.hra_nombre, hra.hra_inicio, hra.hra_fin, 
+dia.dia_codigo, dia.dia_nombre, cur.cur_codigo, asi.asi_nombre_corto, esp.esp_nombre_corto, blo.blo_nombre,  
+paa.paa_semestre, sed.sed_nombre, per.per_nombre, cal.cal_nombre, 
+pe.per_nombre AS per_nombre_profesor, pe.per_apellido AS per_apellido_profesor, 
+pe.per_email_interno AS per_email_profesor 
+FROM matricula mat WITH(NOLOCK)  
+INNER JOIN estudiante est WITH(NOLOCK) ON est.est_codigo=mat.est_codigo 
+INNER JOIN matricula_curso mac ON (mat.mat_codigo = mac.mat_codigo AND mac.maa_codigo IN(1,2)) 
+INNER JOIN curso cur WITH(NOLOCK) ON mac.cur_codigo = cur.cur_codigo 
+INNER JOIN espacio_ocupacion_total eso WITH(NOLOCK) ON cur.cur_codigo = eso.eso_actividad 
+INNER JOIN sede sed WITH(NOLOCK) ON cur.sed_codigo = sed.sed_codigo 
+INNER JOIN hora hra WITH(NOLOCK) ON eso.hra_codigo = hra.hra_codigo 
+INNER JOIN dia dia WITH(NOLOCK) ON eso.dia_codigo = dia.dia_codigo 
+INNER JOIN espacio esp WITH(NOLOCK) ON eso.esp_codigo = esp.esp_codigo 
+LEFT JOIN bloque blo WITH(NOLOCK) ON esp.blo_codigo = blo.blo_codigo 
+INNER JOIN plan_academico_asignatura paa WITH(NOLOCK) ON mac.paa_codigo = paa.paa_codigo 
+INNER JOIN asignatura asi WITH(NOLOCK) ON paa.asi_codigo = asi.asi_codigo 
+INNER JOIN calendario cal WITH(NOLOCK) ON mat.cal_codigo = cal.cal_codigo 
+INNER JOIN periodo per WITH(NOLOCK) ON cal.per_codigo = per.per_codigo 
+INNER JOIN uaa_personal uap WITH(NOLOCK) ON eso.uap_codigo = uap.uap_codigo 
+INNER JOIN persona pe WITH(NOLOCK) ON uap.per_codigo = pe.per_codigo 
+AND mat.est_codigo = '20231214078' AND per.per_nombre = '20242'
+WHERE mac.maf_codigo =2 AND (eso.eso_subgrupo=mac.mac_subgrupo OR eso.eso_subgrupo='00') 
+GROUP BY cur.pla_codigo, cur.asi_codigo, cur.cur_grupo, mac.mac_subgrupo, paa.paa_codigo, 
+asi.asi_nombre, eso.eso_subgrupo, hra.hra_codigo, hra.hra_nombre, hra.hra_inicio, hra.hra_fin, 
+dia.dia_codigo, dia.dia_nombre, cur.cur_codigo, asi.asi_nombre_corto, esp.esp_nombre_corto, blo.blo_nombre,  
+paa.paa_semestre, sed.sed_nombre, per.per_nombre, cal.cal_nombre, pe.per_nombre, pe.per_apellido, pe.per_email_interno 
+ORDER BY asi.asi_nombre, dia.dia_codigo, hra.hra_codigo
+
+select * from carnetizacion.usuario_carnet_digital ucd where ucd.istipo = 6
+
+select * from carnetizacion.usuario_carnet_digital ucd where ucd.istipo = 6
+
+select per_nombre from periodo p where CONVERT(DATE, GETDATE()) BETWEEN p.per_fecha_inicio  AND p.per_fecha_fin
 
 select * from modulo m 
 

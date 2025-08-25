@@ -1,0 +1,1 @@
+select * from uaa_personal up where up.per_codigo = 108797

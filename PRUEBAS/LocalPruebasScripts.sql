@@ -1,3 +1,6 @@
+select * from persona p where p.per_codigo = 118014select * from autorizacion_terminos aut where aut.per_codigo = 108797;DECLARE @exists INT; SELECT @exists = (SELECT COUNT(1) FROM sibusco.restaurante_grupo_gabu                   WHERE per_codigo = 163500 AND rgg_vigencia <= '2025-02-28'); IF (@exists > 0) BEGIN     UPDATE sibusco.restaurante_grupo_gabu     SET rgg_estado = 1, rgg_vigencia = '2025-02-28', rtg_codigo = 1     WHERE per_codigo = 163500END ELSE BEGIN     INSERT INTO sibusco.restaurante_grupo_gabu (rgg_vigencia, rtg_codigo, per_codigo, est_codigo)     VALUES ('2025-02-28', 1, 163500, '20221206668');     SELECT SCOPE_IDENTITY(); ENDselect * from sibusco.restaurante_grupo_gabu;select * from sibusco.restaurante_dias_beneficio select * from token.codigo_inicio_sesion c where c.uid = 146624and c.mod_codigo = 74 and c.cis_ip = '127.0.0.1' --and getdate() < c.cis_fecha_expira order by c.cis_codigo desc select * from token.codigo_inicio_sesion c where c.uid = 94851SELECT CONVERT(VARCHAR(10), GETDATE(), 105) AS FechaActual;
+select * from encuestas.respuestas_cuestionarios rc where rc.per_codigo = 108797select * from encuestas.cuestionarios
+
 select * from web_parametro wp where wp.wep_nombre like '%virtual%'
 
 select * from  curso_virtual cv where cv.cur_url is not null

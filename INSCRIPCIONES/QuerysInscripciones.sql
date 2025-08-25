@@ -37,7 +37,16 @@ SELECT * FROM calendario c
 
 --Query Pines Generados  5689
 select count(*) from liquidacion
-where lit_codigo = 14 and cal_codigo in (229)
+where lit_codigo = 14 and cal_codigo = 236
+
+select * from liquidacion
+inner join factura on factura.liq_codigo = liquidacion.liq_codigo 
+inner join recaudo on recaudo.fac_codigo = factura.fac_codigo
+where lit_codigo = 14 and cal_codigo = 236 and ter_codigo = 201281 
+
+select * from tercero where ter_identificacion = '1104547198'
+201281	2	1104547198	SARA  LUCIA GOMEZ  ROJAS
+select * from calendario 
 
 select count(*) from liquidacion
 where lit_codigo = 14 and cal_codigo in (229) and convert(Date, liq_fecha) BETWEEN '2023-11-08' AND '2023-11-08'
@@ -64,7 +73,7 @@ SELECT *
 FROM I_inscritos i
 INNER JOIN calendario c ON i.cal_codigo = c.cal_codigo
 INNER JOIN periodo p ON c.per_codigo = p.per_codigo
-WHERE p.per_nombre = '20241' and c.cal_nombre like '%20241A%'
+WHERE p.per_nombre = '20251' and c.cal_nombre like '%20241A%'
 
 
 --REFERENCIAS REPETIDAS
@@ -92,11 +101,11 @@ INNER JOIN periodo p ON c.per_codigo = p.per_codigo
 WHERE p.per_nombre = '20241' and c.cal_nombre like '%20241A%'
 
 --INSCRIPCIONES VALIDADAS PREGRADO ETAPA 1  3054
-SELECT count(*)
+SELECT *
 FROM I_inscritos i
 INNER JOIN calendario c ON i.cal_codigo = c.cal_codigo
 INNER JOIN periodo p ON c.per_codigo = p.per_codigo
-WHERE p.per_nombre = '20241' and c.cal_nombre like '%20241A%' and i.ins_modulo1 is not null
+WHERE p.per_nombre = '20251' and c.cal_nombre like '%20241A%' and i.ins_modulo1 is not null
 
 
 --INSCRIPCIONES VALIDADAS PREGRADO ETAPA 2 3046
